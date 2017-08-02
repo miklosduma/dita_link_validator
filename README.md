@@ -1,7 +1,7 @@
 # dita-link-validator
 Python command-line utility for checking external links stored in a ditamap as keys. 
 
-Keeping links to external sources in a ditamap as keys makes it easier to manage and reuse those links. 
+Keeping links to external sources (i.e. websites) in a ditamap as keys makes it easier to manage and reuse those links. 
 > The script will not work on links embedded directly into your content. 
 
 ## Dependencies
