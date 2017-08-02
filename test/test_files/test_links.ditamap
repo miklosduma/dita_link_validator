@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+    <title>Test Links Map</title>
+<topicmeta>
+  <shortdesc>External html links used in the docs .</shortdesc>
+ </topicmeta>
+ <topicref keys="link_sparkl_home" format="html" scope="external"
+  href="http://sparkl.com" navtitle="SPARKL home page">
+  <topicmeta>
+   <keywords>
+    <keyword>SPARKL home page</keyword>
+   </keywords>
+  </topicmeta>
+ </topicref>
+ <topicref keys="link_ansible_about" format="html" scope="external" href="https://en.wikipedia.org/wiki/Darwin_Information_Typing_Architecture"
+  navtitle="DITA wiki page">
+  <topicmeta>
+   <keywords>
+    <keyword>DITA on Wikipedia</keyword>
+   </keywords>
+  </topicmeta>
+ </topicref>
+    
+<topicref keys="link_wrong_link_1" format="html" scope="external" href="http://no-such-link"
+    navtitle="No such link">
+    <topicmeta>
+        <keywords>
+            <keyword>No such link 1</keyword>
+        </keywords>
+    </topicmeta>
+</topicref>
+
+<topicref keys="link_wrong_link_2" format="html" scope="external" href="missing_http_schema"
+    navtitle="No such link 2">
+    <topicmeta>
+        <keywords>
+            <keyword>Link missing http schema</keyword>
+        </keywords>
+    </topicmeta>
+</topicref>
+
+</map>
