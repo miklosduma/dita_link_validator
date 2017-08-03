@@ -11,7 +11,8 @@ messages = {
     'invalid_url_error': 'Link is not well-formed. Check link in your browser:',
     'connection_error': 'Failed to connect to link:',
     'no_such_file_error': 'Could not find file:',
-    'error_count_message': 'Links to be checked:'
+    'error_count_message': 'Links to be checked:',
+    'file_not_spec_error': 'Specify a ditamap file for the command. For example:'
 }
 
 # List of message tags and colors used in console_message fun. Tags and

@@ -108,4 +108,7 @@ def links_map_checker(file):
 
 # Call from command-line as 'python link_checker.py [PATH_TO_DITAMAP]'
 if __name__ == "__main__":
-    links_map_checker(sys.argv[1])
+    if len(sys.argv) > 1:
+        links_map_checker(sys.argv[1])
+    if len(sys.argv) == 1:
+        print console_message('error', 'file_not_spec_error', 'python links_map_checker.py foo.ditamap')
