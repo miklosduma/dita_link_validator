@@ -4,6 +4,7 @@ from termcolor import colored
 messages = {
     'check_message': 'Checking links in file:',
     'check_link_message': 'Link checked:',
+    'all_good_message': 'No broken links found in ditamap:',
     'no_links_warn': 'Links ditamap not well-formed or no external links to check in file:',
     'no_ditamap_warn': 'Based on filename, file is not a ditamap:',
     'not_xml_error': 'File is not a well-formed xml file: ',

@@ -75,9 +75,9 @@ def links_map_checker(file):
             print console_message('warning', 'no_links_warn', file)
             return
 
-        error_links = []
-
         # Get links from topicrefs and ping them through check_link fun
+        # Collect broken links into error_links list
+        error_links = []
         for topicref in topicrefs_with_links:
             link = topicref.attrib.get('href')
             (tag, message_key) = check_link(link)
@@ -89,15 +89,16 @@ def links_map_checker(file):
                 print console_message(tag, message_key, link)
 
             if tag == 'ok':
-                print console_message(tag, message_key, link, with_tag=False)
+                print console_message(tag, message_key, link, with_tag=False, with_color=False)
 
         # If error_links holds any links, prints all links in it as a
         # comma-separated string
         if len(error_links) > 0:
             print console_message('error', 'error_count_message', ", ".join(error_links), with_tag=False)
+            return error_links
 
-        # Return from function
-        return error_links
+        print console_message('ok', 'all_good_message', file)
+        return
 
     # Returns exception if command argument (first positional) targets a
     # non-existent file
