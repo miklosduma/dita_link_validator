@@ -24,7 +24,7 @@ def check_link(link):
 
         return ('ok', 'check_link_message')
 
-    # Possible error scenarios:
+    # Possible error scenarios for the http request:
     except requests.exceptions.MissingSchema:
         return ('error', 'invalid_url_error')
 
@@ -66,9 +66,9 @@ def links_map_checker(file):
         </map>
         """
 
-        # Checks only external links
+        # Checks only html links
         topicrefs_with_links = [
-            x for x in topicrefs if x.attrib.get('scope') == 'external']
+            x for x in topicrefs if x.attrib.get('format') == 'html']
 
         # If no external links in topicrefs, return from function
         if len(topicrefs_with_links) == 0:
@@ -112,7 +112,11 @@ def links_map_checker(file):
 
 # Call from command-line as 'python link_checker.py [PATH_TO_DITAMAP]'
 if __name__ == "__main__":
+    # Only calls command if minimum one argument is specified (command itself
+    # is an element in sys.argv list)
+    if len(sys.argv) == 1:
+        print console_message('error', 'file_not_spec_error', '')
+
+    # Calls the links_map_checker fun with the first positional argument
     if len(sys.argv) > 1:
         links_map_checker(sys.argv[1])
-    if len(sys.argv) == 1:
-        print console_message('error', 'file_not_spec_error', 'python links_map_checker.py foo.ditamap')
