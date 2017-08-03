@@ -14,6 +14,10 @@ def check_link(link):
     try:
         status = requests.head(link).status_code
 
+        # If HEAD method not supported, retry with GET
+        if status == 405:
+            status = requests.get(link).status_code
+
         # Status codes of 400 or higher are error codes.
         if status >= 400:
             return ('error', 'status_code_error')
