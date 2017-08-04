@@ -10,7 +10,7 @@ class TestMapChecker(TestCase):
         check_file = 'dita_link_validator/tests/test_files/test_links.ditamap'
         expected_error_links = ['http://no-such-link', 'missing_http_schema']
         (tag, message_key, error_links) = link_checker.links_map_checker(check_file)
-        self.assertTrue(isinstance(expected_error_links, list))
+        self.assertTrue(isinstance(error_links, list))
         self.assertItemsEqual(expected_error_links,error_links)
 
     # Testing with non-existent file. Should return no such file error
