@@ -73,7 +73,7 @@ def links_map_checker(file):
         # If no external links in topicrefs, return from function
         if len(topicrefs_with_links) == 0:
             print console_message('warning', 'no_links_warn', file)
-            return
+            return ('warning', 'no_links_warn', file)
 
         # Get links from topicrefs and ping them through check_link fun
         # Collect broken links into error_links list
@@ -95,21 +95,21 @@ def links_map_checker(file):
         # comma-separated string
         if len(error_links) > 0:
             print console_message('error', 'error_count_message', ", ".join(error_links), with_tag=False)
-            return error_links
+            return ('error', 'error_count_message', error_links)
 
         print console_message('ok', 'all_good_message', file)
-        return
+        return ('ok', 'all_good_message', file)
 
     # Returns exception if command argument (first positional) targets a
     # non-existent file
     except IOError:
         print console_message('error', 'no_such_file_error', file)
-        return
+        return ('error', 'no_such_file_error', file)
 
     # Returns an exception if the file is not XML or well-formed
     except ET.ParseError:
         print console_message('error', 'not_xml_error', file)
-        return
+        return ('error', 'not_xml_error', file)
 
 # Call from command-line as 'python link_checker.py [PATH_TO_DITAMAP]'
 if __name__ == "__main__":
