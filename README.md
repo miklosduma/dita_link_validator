@@ -41,10 +41,10 @@ Invoke the `link_checker.py` script from the command-line as `python [PATH_TO_SC
 
 For example, the sample code below runs the script on the included test ditamap.
 ```
-$ cd dita-link-validator
-$ python link_checker/link_checker.py test/test_files/test_links.ditamap
+$ cd dita_link_validator/dita_link_validator
+$ python link_checker.py tests/test_files/test_links.ditamap
 
-Checking links in file: test/test_files/test_links.ditamap
+Checking links in file: tests/test_files/test_links.ditamap
 Link checked: http://sparkl.com
 Link checked: https://en.wikipedia.org/wiki/Darwin_Information_Typing_Architecture
 ERROR!!!!! Failed to connect to link: http://no-such-link
