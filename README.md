@@ -2,7 +2,7 @@
 Python command-line utility for checking external links stored in a ditamap as keys. 
 
 Referencing websites through keys makes it easier to manage and reuse those links. 
-> The script will not work on links embedded directly into your content. 
+> The script does not work on links embedded directly into your content. 
 
 ## Dependencies
 * Unix/Linux
@@ -12,11 +12,13 @@ Referencing websites through keys makes it easier to manage and reuse those link
   * termcolor - `pip install termcolor`
 
 ## Expected ditamap structure
-All external links should be added to the ditamap as keys. The script:
-1. Takes all first level `topicref` children from a ditamap
-2. Keeps only the ones that have `scope="external"` on them
-3. Retrieves the links from `hrefs` and pings them
-> It is best to have a separate ditamap for storing links.  
+_Add all external links to the ditamap as keys._
+
+The script:
+1. Takes all first level `topicref` children of a ditamap
+2. Keeps only the ones that have the `format="html"` attribute
+3. Retrieves the links from the `href` attributes and pings them
+> It is best to keep all external links in a separate ditamap.  
 ```xml
 <map>
   <title>Test Links Map</title>
@@ -31,13 +33,13 @@ All external links should be added to the ditamap as keys. The script:
   <!-- More links included as keys -->
 </map>
 ```
-## Referencing links in place of use
+## Referencing links in topics
 ```xml
 <p>Visit the <xref keyref="link_sparkl_home"/> for more information on SPARKL.</p>
 ```
 
 ## Using the checker tool
-Invoke the `link_checker.py` script from the command-line as `python [PATH_TO_SCRIPT] [PATH_TO_DITAMAP]`.  
+Invoke the `link_checker.py` script from the command-line as `python link_checker.py [PATH_TO_DITAMAP]`.  
 
 For example, the sample code below runs the script on the included test ditamap.
 ```
