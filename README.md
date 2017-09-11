@@ -1,7 +1,9 @@
 # dita-link-validator
-_Python command-line utility for finding broken links in a DITA-OT project._
+_Python command-line utility for finding broken links in a DITA project._
 
 ## Dependencies
+* DITA-OT or a software that relies on it
+  > For example, Oxygen XML.
 * Unix/Linux
 * Python 2.7
 * Python libraries:
@@ -10,7 +12,6 @@ _Python command-line utility for finding broken links in a DITA-OT project._
 
 ## Expected structure
 The application assumes:
-* You use the DITA Open Toolkit or a software that relies on it. For example, Oxygen XML
 * External links are added to your ditamap as first-level `topicref` elements
 * All of these `topicref` elements have the `keys` attribute
   > You may keep all external links in a separate ditamap and reuse the whole map wherever needed. 
