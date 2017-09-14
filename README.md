@@ -4,8 +4,8 @@ _Python command-line utility for finding broken links in a DITA project._
 ## Dependencies
 * DITA-OT or a software that relies on it
   > For example, Oxygen XML.
-* Unix/Linux
-* Python 2.7
+* Unix/Linux/Windows
+* Python 2.7+ or Python 3+
 * Python libraries:
   * requests - `pip install requests`
   * termcolor - `pip install termcolor` 
