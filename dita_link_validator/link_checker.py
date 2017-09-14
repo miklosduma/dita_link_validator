@@ -106,6 +106,8 @@ def links_map_checker(file):
         print(console_message('warning', 'no_links_warn', file))
         return ('warning', 'no_links_warn', file)
 
+    # get_topicrefs_from_map comes back with error if file is not xml or does
+    # not exist
     if topicrefs_with_links[0] == 'error':
         return topicrefs_with_links
 
