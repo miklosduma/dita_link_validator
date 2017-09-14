@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE map PUBLIC "-//OASIS//DTD DITA Map//EN" "map.dtd">
+<map>
+    <title>Test Map with no links</title>
+    <topicref href="TopicRoot/Editor/create_mix/adding_a_field_editor_t.dita" keys="top_ed_mix_field"/>
+</map>

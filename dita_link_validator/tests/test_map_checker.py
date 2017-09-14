@@ -29,3 +29,11 @@ class TestMapChecker(TestCase):
         expected = ('error', 'not_xml_error',
                     'dita_link_validator/messages.py')
         self.assertItemsEqual(result, expected)
+
+    # Testing with map that has no external links
+    def test_map_with_no_link(self):
+        check_file = 'dita_link_validator/tests/test_files/test_map_no_links.ditamap'
+        result = link_checker.links_map_checker(check_file)
+        expected = ('warning', 'no_links_warn',
+                    'dita_link_validator/tests/test_files/test_map_no_links.ditamap')
+        self.assertItemsEqual(result, expected)
