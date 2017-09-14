@@ -101,6 +101,9 @@ def links_map_checker(file):
     # Collect topicrefs with links from map
     topicrefs_with_links = get_topicrefs_from_map(file)
 
+    if topicrefs_with_links[0] == 'error':
+        return topicrefs_with_links
+
     # If no external links in topicrefs, return from function
     if len(topicrefs_with_links) == 0:
         print(console_message('warning', 'no_links_warn', file))

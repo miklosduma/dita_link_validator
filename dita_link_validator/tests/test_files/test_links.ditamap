@@ -31,7 +31,16 @@
     </topicmeta>
 </topicref>
 
-<topicref keys="link_wrong_link_2" format="html" scope="external" href="missing_http_schema"
+<topicref keys="link_wrong_link_2" format="html" scope="external" href="test_missing_http_schema"
+    navtitle="No such link 2">
+    <topicmeta>
+        <keywords>
+            <keyword>Link missing http schema</keyword>
+        </keywords>
+    </topicmeta>
+</topicref>
+
+<topicref keys="link_wrong_protocol" format="html" scope="external" href="htp://test_invalid_protocol"
     navtitle="No such link 2">
     <topicmeta>
         <keywords>
