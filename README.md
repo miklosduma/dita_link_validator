@@ -7,8 +7,10 @@ _Python command-line utility for finding broken links in a DITA project._
 * Unix/Linux/Windows
 * Python 2.7+ or Python 3+
 * Python libraries:
-  * requests - `pip install requests`
-  * termcolor - `pip install termcolor` 
+  * requests
+  * termcolor
+  > To install the libraries, run `python setup.py install` from the project's root directory.
+  
 
 ## Expected structure
 The application assumes:
