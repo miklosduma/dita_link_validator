@@ -42,12 +42,12 @@ The application assumes:
 The script does not work on links embedded directly into your content. Storing links in a ditamap and referencing them through keys also makes it easier to manage and reuse those links.
 
 ## Using the tool
-Invoke the `link_checker.py` script from the command-line as `python link_checker.py [PATH_TO_DITAMAP]`.  
+Invoke the `check_links_dita.py` script from the command-line as `python check_links_dita.py [PATH_TO_DITAMAP]`.  
 
 For example, the sample code below runs the script on the included test ditamap.
 ```
 $ cd dita_link_validator/dita_link_validator
-$ python link_checker.py tests/test_files/test_links.ditamap
+$ python check_links_dita.py tests/test_files/test_links.ditamap
 
 Checking links in file: tests/test_files/test_links.ditamap
 Link checked: http://sparkl.com
