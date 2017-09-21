@@ -1,22 +1,28 @@
+"""
+Funs in module check links to find broken ones.
+"""
+
 from __future__ import print_function
 
 import xml.etree.ElementTree as ET
 import requests
 import sys
 
-from messages import console_message
+from dita_link_validator.messages import console_message
 
 
 def is_protocol_correct(link):
     """
-    Correct protocols are https and http. Function returns False if start of link does not match either.
+    Correct protocols are https and http.
+    Function returns False if start of link does not match either.
     """
     return link.startswith('http', 0, 4) or link.startswith('https', 0, 5)
 
 
 def check_link(link):
     """
-    Pings link and sends back response tuple (tag,message_key) for console_message fun
+    Pings link and sends back response tuple
+    for console_message fun (tag,message_key)
     """
 
     # Check protocol first. If incorrect, do not go further
