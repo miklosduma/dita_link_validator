@@ -6,8 +6,8 @@ from __future__ import print_function
 import xml.etree.ElementTree as ET
 import sys
 
-from dita_link_validator.messages import console_message
-from dita_link_validator.link_checker import check_link
+from messages import console_message
+from link_checker import check_link
 
 
 def get_topicrefs_from_map(ditamap):
