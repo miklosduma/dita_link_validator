@@ -18,11 +18,10 @@ class TestMessage(TestCase):
         on a correct file (no colors)
         """
 
-        result = messages.console_message(
-            'ok',
-            'check_message',
-            'file_name',
-            with_color=False)
+        result = messages.console_message('ok',
+                                          'check_message',
+                                          'file_name',
+                                          with_color=False)
         expected = 'SUCCESS!!!!! Checking links in file: file_name'
         self.assertEqual(result, expected)
 
