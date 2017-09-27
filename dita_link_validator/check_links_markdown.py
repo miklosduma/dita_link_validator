@@ -7,7 +7,8 @@ import sys
 from termcolor import colored
 
 target_file = 'README.md'
-target_folder = '../Projects/examples'
+target_folder = '../../examples'
+target_folder2 = '../../sparkl_cli.wiki'
 
 messages = {
     'check_message': 'Checking links in file:',
@@ -145,7 +146,7 @@ def get_files(root_dir):
 
     for link_tuple in max_links_list:
         (link, file) = link_tuple
-        print "Checking %s" % (link)
+        # print "Checking %s" % (link)
         (tag, message) = check_link(link)
         max_links_checked += 1
         if tag == 'error':
@@ -154,4 +155,4 @@ def get_files(root_dir):
     print "Links checked: %s" % (max_links_checked)
     return
 
-get_files(target_folder)
+get_files(target_folder2)
