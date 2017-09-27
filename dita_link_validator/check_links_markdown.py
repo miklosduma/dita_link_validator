@@ -36,31 +36,51 @@ def get_md_links(md_file):
     return links_list
 
 
-def get_files(root_dir):
+def get_md_files(root_dir):
     """
     Collects markdown files from a directory.
     """
-    max_links_list = []
-    max_files_checked = 0
-    max_links_checked = 0
+    paths_to_files = []
     for root, dirs, files in os.walk(root_dir):
         for name in files:
             if '.md' in name:
-                max_files_checked += 1
                 file_path = os.path.join(root, name)
-                # print "Retrieving files in %s:" % (file_path)
-                max_links_list += get_md_links(file_path)
+                paths_to_files.append(file_path)
+    return paths_to_files
 
-    for link_tuple in max_links_list:
+
+def check_links_in_dir(root_dir):
+    """
+    Checks all links in all markdown files
+    in a directory.
+    """
+    md_files = get_md_files(root_dir)
+    links_to_check = []
+    error_links = []
+
+    for md in md_files:
+        links_to_check += get_md_links(md)
+
+    for link_tuple in links_to_check:
         (link, file_name) = link_tuple
         (tag, message) = check_link(link)
-        print(console_message(tag, message, link,
-                              with_tag=False, with_color=False))
-        max_links_checked += 1
+
         if tag == 'error':
             print(console_message(tag, message, link))
-    print("Files checked: %s" % (max_files_checked))
-    print("Links checked: %s" % (max_links_checked))
-    return
+            error_links.append(link)
 
-get_files(TARGET_FOLDER2)
+        if tag == 'ok':
+            print(console_message(tag, message, link,
+                                  with_tag=False, with_color=False))
+
+    number_of_broken_links = len(error_links)
+    if number_of_broken_links > 0:
+        print(console_message('error', 'error_count_message',
+                              ", ".join(error_links), with_tag=False))
+        return ('error', 'error_count_message', error_links)
+
+    print(console_message('ok', 'all_good_message', root_dir))
+    return ('ok', 'all_good_message', root_dir)
+
+
+check_links_in_dir(TARGET_FOLDER)
