@@ -15,6 +15,35 @@ TARGET_FOLDER = '../../examples'
 TARGET_FOLDER2 = '../../sparkl_cli.wiki'
 
 
+def get_reference_links(md_content):
+    """
+    Collects reference type links.
+    E.g.: 
+        [link text][link reference]
+        [link reference]: actual link
+    """
+    links = []
+
+    # Match [*][*] pattern and collect content
+    # inside second pair of square brackets
+    link_reference_candidates = re.findall(
+        r'(?<=\]\[)[^][]+(?=\])', md_content)
+
+    # Use collected reference candidate to check if
+    # a links is assigned to it
+    # E.g. [reference]: link
+    for reference in link_reference_candidates:
+        regex = r'(?<=\[%s\]: )[^ \n]+' % (reference)
+        link = re.findall(regex, md_content)
+
+        # If anything matched, add link value to links list
+        if link != []:
+            link_value = link[0]
+            links.append(link_value)
+
+    return links
+
+
 def get_md_simple_links(md_content):
     """
     Collects simple markdown links.
@@ -64,8 +93,10 @@ def get_md_links(md_file):
     links_list = []
     simple_links = get_md_simple_links(content)
     title_links = get_md_links_with_title(content)
+    ref_links = get_reference_links(content)
     links_list += simple_links
     links_list += title_links
+    links_list += ref_links
 
     return links_list
 
@@ -131,4 +162,4 @@ def check_links_in_dir(root_dir):
     return ('ok', 'all_good_message', root_dir)
 
 
-check_links_in_dir(TARGET_FOLDER)
+check_links_in_dir(TARGET_FOLDER2)
