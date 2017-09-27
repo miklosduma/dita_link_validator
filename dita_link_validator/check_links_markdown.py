@@ -162,4 +162,4 @@ def check_links_in_dir(root_dir):
     return ('ok', 'all_good_message', root_dir)
 
 
-check_links_in_dir(TARGET_FOLDER2)
+# check_links_in_dir(TARGET_FOLDER2)

@@ -102,16 +102,3 @@ def links_map_checker(ditamap):
 
     print(console_message('ok', 'all_good_message', ditamap))
     return ('ok', 'all_good_message', ditamap)
-
-if __name__ == "__main__":
-    # Only calls command if minimum one argument is specified (command itself
-    # is an element in sys.argv list)
-
-    NUMBER_OF_ARGS = len(sys.argv)
-
-    if NUMBER_OF_ARGS == 1:
-        print(console_message('error', 'file_not_spec_error', ''))
-
-    # Calls the links_map_checker fun with the first positional argument
-    if NUMBER_OF_ARGS > 1:
-        links_map_checker(sys.argv[1])
