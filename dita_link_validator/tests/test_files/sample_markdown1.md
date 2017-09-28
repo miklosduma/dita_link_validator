@@ -32,7 +32,7 @@ Documentation for the SPARKL Sequencing Engine can be found online on the [SPARK
 ## To use a tutorial <a name="use_tutorial"></a>:
  1. Open the SPARKL Developer Console
  2. Create a new folder
- 3. Build the mix in the [Editor](http://docs.sparkl.com/#TopicRoot/Editor/the_editor_c.html) with the help of our video guides
+ 3. Build the mix in the [Editor][editor link] with the help of our video guides
  
  ## Bulk importing all example configurations
  ### Dependencies
@@ -62,4 +62,8 @@ Documentation for the SPARKL Sequencing Engine can be found online on the [SPARK
   Import all examples? y/n y
   ```
 All the selected SPARKL example configurations are imported to your user tree at the specified SPARKL instance. The script also creates the `Scratch` and `Lib` folders in your SPARKL user tree if they are not already there.
-> See [this readme](https://github.com/sparkl/examples/tree/master/Library) on the library configurations saved under the `Lib` folder.
+> See [this readme][1] on the library configurations saved under the `Lib` folder.
+
+## Related links
+[1]: https://github.com/sparkl/examples/tree/master/Library
+[editor link]: http://docs.sparkl.com/#TopicRoot/Editor/the_editor_c.html

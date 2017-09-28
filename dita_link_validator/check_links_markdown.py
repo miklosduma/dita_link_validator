@@ -30,7 +30,7 @@ def get_reference_links(md_content):
     # a link is assigned to any of them
     # E.g. [reference]: link
     for reference in link_reference_candidates:
-        regex = r'(?<=\[%s\]: )[^ \n]+' % (reference)
+        regex = r'(?<=\[%s\]: )[^ \n\r]+' % (reference)
         link = re.findall(regex, md_content)
 
         # If anything matched, add link value to links list
