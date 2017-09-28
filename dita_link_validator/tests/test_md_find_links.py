@@ -1,8 +1,12 @@
-import pytest
+"""
+Tests for markdown regex link finders.
+"""
 
 from dita_link_validator import check_links_markdown as clm
-from conftest import (test_file, expected_links_with_title,
-                      expected_simple_links, expected_reference_links)
+from dita_link_validator.tests.conftest import (TEST_FILE_1,
+                                                EXPECTED_LINKS_TITLE_1,
+                                                EXPECTED_SIMPLE_LINKS_1,
+                                                EXPECTED_REFERENCE_LINKS_1)
 
 
 def test_simple_links(setup_method):
@@ -13,7 +17,7 @@ def test_simple_links(setup_method):
     """
     simple_links = clm.get_simple_links(setup_method)
     simple_links.sort()
-    assert simple_links == expected_simple_links
+    assert simple_links == EXPECTED_SIMPLE_LINKS_1
 
 
 def test_link_title(setup_method):
@@ -24,7 +28,7 @@ def test_link_title(setup_method):
     """
     links_with_title = clm.get_links_with_title(setup_method)
     links_with_title.sort()
-    assert links_with_title == expected_links_with_title
+    assert links_with_title == EXPECTED_LINKS_TITLE_1
 
 
 def test_link_reference(setup_method):
@@ -36,16 +40,16 @@ def test_link_reference(setup_method):
     """
     reference_links = clm.get_reference_links(setup_method)
     reference_links.sort()
-    assert reference_links == expected_reference_links
+    assert reference_links == EXPECTED_REFERENCE_LINKS_1
 
 
 def test_get_all_links():
     """
     Checking if manages to get all links from file.
     """
-    expected_all_links = expected_links_with_title + \
-        expected_simple_links + expected_reference_links
+    expected_all_links = EXPECTED_LINKS_TITLE_1 + \
+        EXPECTED_SIMPLE_LINKS_1 + EXPECTED_REFERENCE_LINKS_1
     expected_all_links.sort()
-    all_links = clm.get_all_links(test_file)
+    all_links = clm.get_all_links(TEST_FILE_1)
     all_links.sort()
     assert all_links == expected_all_links
