@@ -88,9 +88,9 @@ def get_all_links(md_file):
     """
 
     # Read content of markdown file
-    open_file = open(md_file, 'r')
-    content = open_file.read()
-
+    with open(md_file, 'r') as open_md_file:
+        content = open_md_file.read()
+    
     # Get all types of links and concatenate results
     return get_simple_links(
         content) + get_links_with_title(
