@@ -88,6 +88,9 @@ def links_map_checker(ditamap):
             error_links.append(link)
             print(console_message(tag, message_key, link))
 
+        if tag == 'warning':
+            print(console_message(tag, message_key, link))
+
         if tag == 'ok':
             print(console_message(tag, message_key, link,
                                   with_tag=False, with_color=False))

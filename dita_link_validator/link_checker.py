@@ -32,8 +32,13 @@ def check_link(link):
         if status == 405:
             status = requests.get(link).status_code
 
+        # If you're not authenticated, send warning
+        if status == 401:
+            return ('warning', 'auth_warn' )
+        
         # Status codes of 400 or higher are error codes.
         if status >= 400:
+            print (status)
             return ('error', 'status_code_error')
 
         return ('ok', 'check_link_message')

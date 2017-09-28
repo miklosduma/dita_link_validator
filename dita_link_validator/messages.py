@@ -16,6 +16,8 @@ messages = {
         'File is not a well-formed xml file: ',
     'status_code_error':
         'Browser sent back error status code. Check link: ',
+    'auth_warn':
+        'No permission to open link: ',
     'invalid_url_error':
         'Link is not well-formed. Check link in your browser: ',
     'connection_error':

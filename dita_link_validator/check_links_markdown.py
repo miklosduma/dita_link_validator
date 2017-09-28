@@ -156,6 +156,9 @@ def check_links_in_dir(root_dir):
                 print(console_message(tag, message, link))
                 error_links.append(link + ' in ' + md_file)
 
+            if tag == 'warning':
+                print(console_message(tag, message, link))
+
             if tag == 'ok':
                 print(console_message(tag, message, link,
                                       with_tag=False, with_color=False))
