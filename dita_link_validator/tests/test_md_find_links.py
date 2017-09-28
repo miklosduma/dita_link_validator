@@ -3,7 +3,7 @@ Tests for markdown regex link finders.
 """
 
 from dita_link_validator import check_links_markdown as clm
-from dita_link_validator.tests.conftest import (TEST_FILE_1,
+from dita_link_validator.tests.conftest import (TEST_FILE_1, TEST_FILES_DIR,
                                                 EXPECTED_LINKS_TITLE_1,
                                                 EXPECTED_SIMPLE_LINKS_1,
                                                 EXPECTED_REFERENCE_LINKS_1)
@@ -53,3 +53,13 @@ def test_get_all_links():
     all_links = clm.get_all_links(TEST_FILE_1)
     all_links.sort()
     assert all_links == expected_all_links
+
+
+def test_find_md_files():
+    """
+    Check if manages to collect all md files in dir.
+    """
+    md_files = clm.get_md_files(TEST_FILES_DIR)
+    expected_files = [
+        'dita_link_validator/tests/test_files/sample_markdown1.md']
+    assert md_files == expected_files
