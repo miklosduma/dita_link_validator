@@ -27,8 +27,11 @@ messages = {
     'error_count_message':
         'Links to be checked:\n',
     'file_not_spec_error':
-        'Specify a ditamap file for the command. '
-        'For example: python links_map_checker.py foo.ditamap'
+        'Specify a ditamap file for the command.\n'
+        'For example: python call_command.py dita foo.ditamap',
+    'no_args_error':
+        'Command takes two arguments.\n'
+        'For example: [cmd] markdown path_to_folder'
 }
 
 # List of message tags and colors used in console_message fun. Tags and
