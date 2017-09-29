@@ -1,9 +1,18 @@
+"""
+Contains all messages for package.
+Also a function to format messages for terminal output.
+"""
+
 from termcolor import colored
 
 # List of messages returned in terminal. Used in console_message fun
-messages = {
+MESSAGES = {
     'check_message':
         'Checking links in file: ',
+    'no_markdown_files':
+        'No markdown files in directory: ',
+    'not_directory':
+        'Not a directory: ',
     'check_link_message':
         'Link checked: ',
     'all_good_message':
@@ -31,12 +40,15 @@ messages = {
         'For example: python call_command.py dita foo.ditamap',
     'no_args_error':
         'Command takes two arguments.\n'
-        'For example: [cmd] markdown path_to_folder'
+        'For example: [cmd] markdown path_to_folder',
+    'invalid_arg_error':
+        'First argument must be markdown or dita.\n'
+        'Invalid argument: '
 }
 
 # List of message tags and colors used in console_message fun. Tags and
 # colors are all optional
-message_types = {
+MESSAGE_TYPES = {
     'ok': {
         'color': 'green',
         'tag': 'SUCCESS!!!!!'
@@ -56,25 +68,25 @@ message_types = {
 }
 
 
-def console_message(type, key, arg, with_color=True, with_tag=True):
+def console_message(msg_type, key, arg, with_color=True, with_tag=True):
     """
     Constructs message based on:
       * type (i.e. 'info' or 'error')
       * message key (i.e. 'check_message' or 'invalid_url_error')
       * arg (a variable, such as a link or file name)
     """
-    message = ''.join((messages[key], arg))
+    message = ''.join((MESSAGES[key], arg))
 
     # If with_tag is set to true (default), tag corresponding to type is used
     # as prefix to the message
     if with_tag:
-        tag = message_types[type]['tag']
+        tag = MESSAGE_TYPES[msg_type]['tag']
         message = ' '.join((tag, message))
 
     # If with_color is set to true (default), color corresponding to type is
     # used to format the message
     if with_color:
-        color = message_types[type]['color']
+        color = MESSAGE_TYPES[msg_type]['color']
         return colored(message, color)
 
     return message

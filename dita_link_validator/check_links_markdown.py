@@ -122,6 +122,10 @@ def check_links_in_dir(root_dir):
     in a directory.
     """
 
+    if not os.path.isdir(root_dir):
+        print(console_message('error', 'not_directory', root_dir))
+        return ('error', 'not_directory', root_dir)
+
     # Collect markdown files
     md_files = get_md_files(root_dir)
     number_of_files = len(md_files)
@@ -129,6 +133,10 @@ def check_links_in_dir(root_dir):
     # Start state for link statistics
     total_links = 0
     error_links = []
+
+    if number_of_files == 0:
+        print(console_message('warning', 'no_markdown_files', root_dir))
+        return ('warning', 'no_markdown_files', root_dir)
 
     # Check links in all collected files
     for md_file in md_files:

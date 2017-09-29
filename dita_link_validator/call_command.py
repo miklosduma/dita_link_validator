@@ -27,16 +27,16 @@ def call_main(args):
 
     # First positional argument must be dita or markdown
     if command_option not in valid_options:
-        print('Invalid command option')
-        return
+        print(console_message('error', 'invalid_arg_error', command_option))
+        return ('error', 'invalid_arg_error', command_option)
 
     # For dita call checker fun on second argument
-    # Second arg must be a ditamap
+    # Second arg must be a ditamap. This is handled in links_map_checker
     if command_option == 'dita':
         return links_map_checker(command_target)
 
     # For markdown call checker fun on second argument
-    # Second arg must be a directory
+    # Second arg must be a directory. This is handled in check_links_in_dir
     if command_option == 'markdown':
         return check_links_in_dir(command_target)
 
