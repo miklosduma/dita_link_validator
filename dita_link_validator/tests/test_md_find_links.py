@@ -61,5 +61,5 @@ def test_find_md_files():
     """
     md_files = clm.get_md_files(TEST_FILES_DIR)
     expected_files = [
-        'dita_link_validator/tests/test_files/sample_markdown1.md']
+        'dita_link_validator/tests/test_files/markdown/sample_markdown1.md']
     assert md_files == expected_files

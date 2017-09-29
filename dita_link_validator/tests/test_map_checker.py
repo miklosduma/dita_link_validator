@@ -14,7 +14,7 @@ def test_check_map():
     Expects: ('error', 'error_count_message', error_links)
     error_links must include all links in expected_error_links list.
     """
-    check_file = '%s/test_links.ditamap' % (TEST_FILES_DIR)
+    check_file = '%s/dita/test_links.ditamap' % (TEST_FILES_DIR)
 
     expected_tag = 'error'
     expected_message_key = 'error_count_message'
@@ -60,7 +60,7 @@ def test_map_with_no_link():
     Testing with map that has no external links.
     Must return no links warning.
     """
-    check_file = '%s/test_map_no_links.ditamap' % (
+    check_file = '%s/dita/test_map_no_links.ditamap' % (
         TEST_FILES_DIR)
     result = links_map_checker(check_file)
     expected = ('warning', 'no_links_warn',
