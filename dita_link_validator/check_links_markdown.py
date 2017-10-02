@@ -55,7 +55,7 @@ def get_simple_links(md_content):
 
     # Collect link value from matched links
     for link in simple_links:
-        link_value = re.findall(r'(?<=\()[^(]+(?=\))', link)[0]
+        link_value = re.findall(r'(?<=\]\()[^(]+(?=\))', link)[0]
         simple_links_list.append(link_value)
 
     return simple_links_list

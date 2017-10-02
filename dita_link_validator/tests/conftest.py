@@ -18,6 +18,7 @@ EXPECTED_LINKS_TITLE_1 = ['https://www.python.org/downloads/']
 EXPECTED_SIMPLE_LINKS_1 = ['http://docs.sparkl.com/',
                            'https://git-scm.com/downloads',
                            'https://github.com/sparkl/cli/releases',
+                           'https://python-xy.github.io',
                            'https://saas.sparkl.com',
                            'https://saas.sparkl.com']
 EXPECTED_REFERENCE_LINKS_1 = ['http://docs.sparkl.com/#TopicRoot/'

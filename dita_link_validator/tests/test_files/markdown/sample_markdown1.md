@@ -28,6 +28,8 @@ Documentation for the SPARKL Sequencing Engine can be found online on the [SPARK
 4. Import the `xml` file
    > If you have access to the SPARKL command line interface, use the `Examples/importXmp.sh` script to import all the downloaded configurations to the Developer Console.
 5. Run it in the Developer Console
+
+[Python(x,y)](https://python-xy.github.io)
   
 ## To use a tutorial <a name="use_tutorial"></a>:
  1. Open the SPARKL Developer Console
