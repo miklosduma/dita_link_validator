@@ -135,8 +135,8 @@ def check_links_in_dir(root_dir):
     error_links = []
 
     if number_of_files == 0:
-        print(console_message('warning', 'no_markdown_files', root_dir))
-        return ('warning', 'no_markdown_files', root_dir)
+        print(console_message('warn', 'no_markdown_files', root_dir))
+        return ('warn', 'no_markdown_files', root_dir)
 
     # Check links in all collected files
     for md_file in md_files:
@@ -177,7 +177,7 @@ def check_links_in_dir(root_dir):
                 print(console_message(tag, message, link))
                 error_links.append(link + ' in ' + md_file)
 
-            if tag == 'warning':
+            if tag == 'warn':
                 print(console_message(tag, message, link))
 
             if tag == 'ok':

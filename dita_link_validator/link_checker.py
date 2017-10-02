@@ -17,11 +17,17 @@ def is_protocol_correct(link):
 
 def is_rel_link(md_file, link):
     """
-    For markdown use. If protocol is missing, link might be relative link.
-    Fun checks if link is a valid path to an existing file.
+    For markdown use only. 
+    Checks if link is a valid file path.
+    Returns True or False.
     """
 
+    # md_file is actually a path to a markdown file
+    # remove file name from path
     (path_to_file, file_name) = os.path.split(md_file)
+
+    # Build full path from link, relative to path to
+    # markdown file
     rel_path = os.path.join(path_to_file, link)
 
     return os.path.exists(rel_path)

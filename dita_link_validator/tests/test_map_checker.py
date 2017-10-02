@@ -63,6 +63,6 @@ def test_map_with_no_link():
     check_file = '%s/dita/test_map_no_links.ditamap' % (
         TEST_FILES_DIR)
     result = links_map_checker(check_file)
-    expected = ('warning', 'no_links_warn',
+    expected = ('warn', 'no_links_warn',
                 check_file)
     assert result == expected

@@ -7,6 +7,8 @@ from termcolor import colored
 
 # List of messages returned in terminal. Used in console_message fun
 MESSAGES = {
+
+    # Success messages
     'ok': {
         'color': 'green',
         'tag': 'SUCCESS!!!!!',
@@ -19,6 +21,8 @@ MESSAGES = {
                 'No broken links found in: '
         }
     },
+
+    # Error messages
     'error': {
         'color': 'red',
         'tag': 'ERROR!!!!!',
@@ -51,7 +55,9 @@ MESSAGES = {
                 'Invalid argument: '
         }
     },
-    'warning': {
+
+    # Warnings
+    'warn': {
         'color': 'yellow',
         'tag': 'WARNING!!!!!',
         'messages': {
@@ -63,6 +69,8 @@ MESSAGES = {
                 'No markdown files in directory: '
         }
     },
+
+    # Informative messages
     'info': {
         'color': 'blue',
         'tag': 'INFO:',

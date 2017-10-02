@@ -14,7 +14,7 @@ def test_no_files_in_dir():
     """
     no_md_dir = '%s/dita' % (TEST_FILES_DIR)
     (tag, message_key, argument) = check_links_in_dir(no_md_dir)
-    expected_tag = 'warning'
+    expected_tag = 'warn'
     expected_message_key = 'no_markdown_files'
     assert tag == expected_tag
     assert message_key == expected_message_key

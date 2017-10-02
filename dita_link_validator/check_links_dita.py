@@ -28,7 +28,7 @@ def get_topicrefs_from_map(ditamap):
     # Warns if name of file does not end with .ditamap
     suffix = '.ditamap'
     if not ditamap.endswith(suffix):
-        print(console_message('warning', 'no_ditamap_warn', ditamap))
+        print(console_message('warn', 'no_ditamap_warn', ditamap))
 
     try:
         # Gets first level topicref children of ditamap
@@ -66,8 +66,8 @@ def links_map_checker(ditamap):
 
     # If no external links in topicrefs, return from function
     if number_of_topicrefs == 0:
-        print(console_message('warning', 'no_links_warn', ditamap))
-        return ('warning', 'no_links_warn', ditamap)
+        print(console_message('warn', 'no_links_warn', ditamap))
+        return ('warn', 'no_links_warn', ditamap)
 
     # get_topicrefs_from_map comes back with error if file is not xml or does
     # not exist
@@ -88,7 +88,7 @@ def links_map_checker(ditamap):
             error_links.append(link)
             print(console_message(tag, message_key, link))
 
-        if tag == 'warning':
+        if tag == 'warn':
             print(console_message(tag, message_key, link))
 
         if tag == 'ok':
