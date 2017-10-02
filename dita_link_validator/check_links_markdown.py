@@ -155,17 +155,22 @@ def check_links_in_dir(root_dir):
         number_of_links = len(links_to_check)
         total_links += number_of_links
 
+        # Links checked in file.
+        print(console_message('info',
+                              'no_of_links_file',
+                              number_of_links,
+                              with_tag=False,
+                              with_color=False))
+
         # Check all links in file
         for link in links_to_check:
             (tag, message) = check_link(link)
 
             # If http/https is missing, link might be relative link
-            if message == 'invalid_protocol':
-
-                # If link is a valid file path, change message tag and key
-                if is_rel_link(md_file, link):
-                    tag = 'ok'
-                    message = 'check_rel_link_message'
+            # If link is a valid file path, check is successful
+            if message == 'invalid_protocol' and is_rel_link(md_file, link):
+                tag = 'ok'
+                message = 'check_rel_link_message'
 
             # If cannot open link, send error message and add link to list
             if tag == 'error':
@@ -179,12 +184,15 @@ def check_links_in_dir(root_dir):
                 print(console_message(tag, message, link,
                                       with_tag=False, with_color=False))
 
-        # Links checked in file. Replace with message at some point
-        print('Number of links checked: %s' % (number_of_links))
-
-    # Total number of files and links checked. Replace with message
-    print('Number of files collected: %s' % (number_of_files))
-    print('Total number of links checked: %s' % (total_links))
+    # Total number of files and links checked.
+    print(console_message('info',
+                          'no_of_files',
+                          number_of_files,
+                          with_tag=False))
+    print(console_message('info',
+                          'no_of_links_total',
+                          total_links,
+                          with_tag=False))
 
     # If any broken link is found, print list of error links
     number_of_broken_links = len(error_links)

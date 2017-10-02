@@ -7,68 +7,75 @@ from termcolor import colored
 
 # List of messages returned in terminal. Used in console_message fun
 MESSAGES = {
-    'check_message':
-        'Checking links in file: ',
-    'no_markdown_files':
-        'No markdown files in directory: ',
-    'not_directory':
-        'Not a directory: ',
-    'check_link_message':
-        'Link checked: ',
-    'check_rel_link_message':
-        'Relative link checked: ',
-    'all_good_message':
-        'No broken links found in: ',
-    'no_links_warn':
-        'Links ditamap not well-formed or no external links in file: ',
-    'no_ditamap_warn':
-        'Based on filename, file is not a ditamap: ',
-    'not_xml_error':
-        'File is not a well-formed xml file: ',
-    'status_code_error':
-        'Browser sent back error status code. Check link: ',
-    'auth_warn':
-        'No permission to open link: ',
-    'invalid_url_error':
-        'Link is not well-formed. Check link in your browser: ',
-    'invalid_protocol':
-        'Link does not start with http/https protocol.\n'
-        'Check link in your browser: ',
-    'connection_error':
-        'Failed to connect to link: ',
-    'no_such_file_error':
-        'Could not find file: ',
-    'error_count_message':
-        'Links to be checked:\n',
-    'file_not_spec_error':
-        'Specify a ditamap file for the command.\n'
-        'For example: python call_command.py dita foo.ditamap',
-    'no_args_error':
-        'Command takes two arguments.\n'
-        'For example: [cmd] markdown path_to_folder',
-    'invalid_arg_error':
-        'First argument must be markdown or dita.\n'
-        'Invalid argument: '
-}
-
-# List of message tags and colors used in console_message fun. Tags and
-# colors are all optional
-MESSAGE_TYPES = {
     'ok': {
         'color': 'green',
-        'tag': 'SUCCESS!!!!!'
+        'tag': 'SUCCESS!!!!!',
+        'messages': {
+            'check_link_message':
+                'Link checked: ',
+            'check_rel_link_message':
+                'Relative link checked: ',
+            'all_good_message':
+                'No broken links found in: '
+        }
     },
     'error': {
         'color': 'red',
-        'tag': 'ERROR!!!!!'
+        'tag': 'ERROR!!!!!',
+        'messages': {
+            'not_directory':
+                'Not a directory: ',
+            'not_xml_error':
+                'File is not a well-formed xml file: ',
+            'status_code_error':
+                'Browser sent back error status code. Check link: ',
+            'invalid_url_error':
+                'Link is not well-formed. Check link in your browser: ',
+            'invalid_protocol':
+                'Link does not start with http/https protocol.\n'
+                'Check link in your browser: ',
+            'connection_error':
+                'Failed to connect to link: ',
+            'no_such_file_error':
+                'Could not find file: ',
+            'error_count_message':
+                'Check links:\n',
+            'file_not_spec_error':
+                'Specify a ditamap file for the command.\n'
+                'For example: python call_command.py dita foo.ditamap',
+            'no_args_error':
+                'Command takes two arguments.\n'
+                'For example: [cmd] markdown path_to_folder',
+            'invalid_arg_error':
+                'First argument must be markdown or dita.\n'
+                'Invalid argument: '
+        }
     },
     'warning': {
         'color': 'yellow',
-        'tag': 'WARNING!!!!!'
+        'tag': 'WARNING!!!!!',
+        'messages': {
+            'no_links_warn':
+                'Links ditamap not well-formed or no external links in file: ',
+            'no_ditamap_warn':
+                'Based on filename, file is not a ditamap: ',
+            'no_markdown_files':
+                'No markdown files in directory: '
+        }
     },
     'info': {
         'color': 'blue',
-        'tag': 'INFO:'
+        'tag': 'INFO:',
+        'messages': {
+            'check_message':
+                'Checking links in file: ',
+            'no_of_links_file':
+                'Number of links: ',
+            'no_of_links_total':
+                'Total number of links checked: ',
+            'no_of_files':
+                'Number of files collected: '
+        }
     }
 }
 
@@ -79,19 +86,37 @@ def console_message(msg_type, key, arg, with_color=True, with_tag=True):
       * type (i.e. 'info' or 'error')
       * message key (i.e. 'check_message' or 'invalid_url_error')
       * arg (a variable, such as a link or file name)
+    Collects message text from MESSAGES object
+
+    MESSAGES = {
+        msg_type: {
+            'color': ,
+            'tag': ,
+            'messages': {
+                key: 'This is the actual text'
+            }
+        }
+    }
     """
-    message = ''.join((MESSAGES[key], arg))
+    # Arg is a link, path or number. Make sure it is list
+    arg = str(arg)
+
+    # Get text of message from MESSAGES object
+    message_text = MESSAGES[msg_type]['messages'][key]
+
+    # Appened message with argument
+    message = ''.join((message_text, arg))
 
     # If with_tag is set to true (default), tag corresponding to type is used
     # as prefix to the message
     if with_tag:
-        tag = MESSAGE_TYPES[msg_type]['tag']
+        tag = MESSAGES[msg_type]['tag']
         message = ' '.join((tag, message))
 
     # If with_color is set to true (default), color corresponding to type is
     # used to format the message
     if with_color:
-        color = MESSAGE_TYPES[msg_type]['color']
+        color = MESSAGES[msg_type]['color']
         return colored(message, color)
 
     return message

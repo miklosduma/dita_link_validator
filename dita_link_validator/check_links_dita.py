@@ -100,7 +100,7 @@ def links_map_checker(ditamap):
     number_of_broken_links = len(error_links)
     if number_of_broken_links > 0:
         print(console_message('error', 'error_count_message',
-                              ", ".join(error_links), with_tag=False))
+                              "\n".join(error_links), with_tag=False))
         return ('error', 'error_count_message', error_links)
 
     print(console_message('ok', 'all_good_message', ditamap))

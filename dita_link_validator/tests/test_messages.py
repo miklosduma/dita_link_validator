@@ -13,11 +13,11 @@ def test_message_1():
     on a correct file (no colors)
     """
 
-    result = messages.console_message('ok',
+    result = messages.console_message('info',
                                       'check_message',
                                       'file_name',
                                       with_color=False)
-    expected = 'SUCCESS!!!!! Checking links in file: file_name'
+    expected = 'INFO: Checking links in file: file_name'
     assert result == expected
 
 
