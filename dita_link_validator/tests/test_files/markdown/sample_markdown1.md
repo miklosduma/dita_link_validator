@@ -42,7 +42,7 @@ Documentation for the SPARKL Sequencing Engine can be found online on the [SPARK
  * Git - get it from [here](https://git-scm.com/downloads)
  * The SPARKL CLI - get it from [here](https://github.com/sparkl/cli/releases)
  * An existing SPARKL user account
- > You can create your user account on the [public instance of the Developer Console](https://saas.sparkl.com)
+ > You can create your user account on the ([public instance of the Developer Console](https://saas.sparkl.com))
 ### Procedure
 1. Clone the `examples` repository.
   ```

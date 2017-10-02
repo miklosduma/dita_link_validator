@@ -55,7 +55,7 @@ def get_simple_links(md_content):
 
     # Collect link value from matched links
     for link in simple_links:
-        link_value = re.findall(r'(?<=\]\()[^(]+(?=\))', link)[0]
+        link_value = re.findall(r'(?<=\]\()[^()]+(?=\))', link)[0]
         simple_links_list.append(link_value)
 
     return simple_links_list
@@ -112,7 +112,7 @@ def get_md_files(root_dir):
             if '.md' in name:
                 file_path = os.path.join(root, name)
                 paths_to_files.append(file_path)
-
+    # print(depth)
     return paths_to_files
 
 
@@ -127,6 +127,7 @@ def check_links_in_dir(root_dir):
         return ('error', 'not_directory', root_dir)
 
     # Collect markdown files
+    print('Collecting files...')
     md_files = get_md_files(root_dir)
     number_of_files = len(md_files)
 
