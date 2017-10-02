@@ -15,6 +15,8 @@ MESSAGES = {
         'Not a directory: ',
     'check_link_message':
         'Link checked: ',
+    'check_rel_link_message':
+        'Relative link checked: ',
     'all_good_message':
         'No broken links found in: ',
     'no_links_warn':

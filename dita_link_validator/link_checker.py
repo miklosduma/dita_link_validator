@@ -3,6 +3,7 @@ Funs in module check links to find broken ones.
 """
 
 from __future__ import print_function
+import os
 import requests
 
 
@@ -12,6 +13,18 @@ def is_protocol_correct(link):
     Function returns False if start of link does not match either.
     """
     return link.startswith('http', 0, 4) or link.startswith('https', 0, 5)
+
+
+def is_rel_link(md_file, link):
+    """
+    For markdown use. If protocol is missing, link might be relative link.
+    Fun checks if link is a valid path to an existing file.
+    """
+
+    (path_to_file, file_name) = os.path.split(md_file)
+    rel_path = os.path.join(path_to_file, link)
+
+    return os.path.exists(rel_path)
 
 
 def check_link(link):

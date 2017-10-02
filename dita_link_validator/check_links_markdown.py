@@ -9,7 +9,7 @@ import re
 import os
 
 from messages import console_message
-from link_checker import check_link
+from link_checker import check_link, is_rel_link
 
 
 def get_reference_links(md_content):
@@ -158,6 +158,14 @@ def check_links_in_dir(root_dir):
         # Check all links in file
         for link in links_to_check:
             (tag, message) = check_link(link)
+
+            # If http/https is missing, link might be relative link
+            if message == 'invalid_protocol':
+
+                # If link is a valid file path, change message tag and key
+                if is_rel_link(md_file, link):
+                    tag = 'ok'
+                    message = 'check_rel_link_message'
 
             # If cannot open link, send error message and add link to list
             if tag == 'error':
