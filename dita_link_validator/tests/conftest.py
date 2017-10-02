@@ -6,6 +6,8 @@ import pytest
 
 TEST_FILES_DIR = 'dita_link_validator/tests/test_files'
 TEST_FILE_1 = '%s/markdown/sample_markdown1.md' % (TEST_FILES_DIR)
+TEST_FILE_2 = '%s/markdown/sample_md_relative.md' % (TEST_FILES_DIR)
+TEST_FILE_3 = '%s/markdown/sample_md_broken.md' % (TEST_FILES_DIR)
 
 
 IMAGE_LINKS_1 = [

@@ -60,6 +60,5 @@ def test_find_md_files():
     Check if manages to collect all md files in dir.
     """
     md_files = clm.get_md_files(TEST_FILES_DIR)
-    expected_files = [
-        'dita_link_validator/tests/test_files/markdown/sample_markdown1.md']
-    assert md_files == expected_files
+    number_of_md_files = len(md_files)
+    assert number_of_md_files == 3

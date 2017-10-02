@@ -33,3 +33,14 @@ def test_not_dir():
     assert tag == expected_tag
     assert message_key == expected_message_key
     assert argument == TEST_FILE_1
+
+
+def test_md_full():
+    """
+    Call markdown link collection and checking.
+    Expects to find broken links.
+    """
+    (tag, message_key, error_links) = check_links_in_dir(TEST_FILES_DIR)
+    assert tag == 'error'
+    assert message_key == 'error_count_message'
+    assert any('sample_file_non.md' in x for x in error_links)
