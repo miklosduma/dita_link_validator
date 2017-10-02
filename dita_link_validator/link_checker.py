@@ -22,7 +22,7 @@ def check_link(link):
 
     # Check protocol first. If incorrect, do not go further
     if not is_protocol_correct(link):
-        return ('error', 'invalid_url_error')
+        return ('error', 'invalid_protocol')
 
     # Uses HEAD request to get status code
     try:
@@ -34,11 +34,11 @@ def check_link(link):
 
         # If you're not authenticated, send warning
         if status == 401:
-            return ('warning', 'auth_warn' )
-        
+            return ('warning', 'auth_warn')
+
         # Status codes of 400 or higher are error codes.
         if status >= 400:
-            print (status)
+            print(status)
             return ('error', 'status_code_error')
 
         return ('ok', 'check_link_message')

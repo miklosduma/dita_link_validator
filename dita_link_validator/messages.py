@@ -29,6 +29,9 @@ MESSAGES = {
         'No permission to open link: ',
     'invalid_url_error':
         'Link is not well-formed. Check link in your browser: ',
+    'invalid_protocol':
+        'Link does not start with http/https protocol.\n'
+        'Check link in your browser: ',
     'connection_error':
         'Failed to connect to link: ',
     'no_such_file_error':

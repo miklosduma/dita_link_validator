@@ -9,7 +9,7 @@ from dita_link_validator import link_checker
 
 VALID_TAGS = ('error', 'ok')
 VALID_MSG_KEYS = ('status_code_error', 'check_link_message',
-                  'invalid_url_error', 'connection_error')
+                  'invalid_url_error', 'connection_error', 'invalid_protocol')
 
 
 def test_check_link_success():
@@ -47,7 +47,7 @@ def test_check_link_error_2():
     """
     (tag, message_key) = link_checker.check_link('vv')
     expected_tag = 'error'
-    expected_message_key = 'invalid_url_error'
+    expected_message_key = 'invalid_protocol'
     assert tag in VALID_TAGS
     assert tag == expected_tag
     assert message_key in VALID_MSG_KEYS
