@@ -106,13 +106,13 @@ def console_message(msg_type, key, arg, with_color=True, with_tag=True):
         }
     }
     """
-    # Arg is a link, path or number. Make sure it is list
+    # Arg is a link, path or number. Make sure it is string
     arg = str(arg)
 
     # Get text of message from MESSAGES object
     message_text = MESSAGES[msg_type]['messages'][key]
 
-    # Appened message with argument
+    # Append message with argument
     message = ''.join((message_text, arg))
 
     # If with_tag is set to true (default), tag corresponding to type is used
