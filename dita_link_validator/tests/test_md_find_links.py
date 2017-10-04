@@ -6,7 +6,8 @@ from dita_link_validator import check_links_markdown as clm
 from dita_link_validator.tests.conftest import (TEST_FILE_1, TEST_FILES_DIR,
                                                 EXPECTED_LINKS_TITLE_1,
                                                 EXPECTED_SIMPLE_LINKS_1,
-                                                EXPECTED_REFERENCE_LINKS_1)
+                                                EXPECTED_REFERENCE_LINKS_1,
+                                                EXPECTED_WIKI_PAGE_REFS)
 
 
 def test_simple_links(setup_method):
@@ -43,9 +44,19 @@ def test_link_reference(setup_method):
     assert reference_links == EXPECTED_REFERENCE_LINKS_1
 
 
+def test_wiki_page_reference(setup_method):
+    """
+    Checking if fun manages to collect links like:
+    [[Page name]] or [[Link text|Page name]]
+    """
+    wiki_page_refs = clm.get_wiki_page_refs(setup_method)
+    wiki_page_refs.sort()
+    assert wiki_page_refs == EXPECTED_WIKI_PAGE_REFS
+
+
 def test_get_all_links():
     """
-    Checking if manages to get all links from file.
+    Checking if fun manages to get all links from file.
     """
     expected_all_links = EXPECTED_LINKS_TITLE_1 + \
         EXPECTED_SIMPLE_LINKS_1 + EXPECTED_REFERENCE_LINKS_1
@@ -57,7 +68,7 @@ def test_get_all_links():
 
 def test_find_md_files():
     """
-    Check if manages to collect all md files in dir.
+    Check if fun manages to collect all md files in dir.
     """
     md_files = clm.get_md_files(TEST_FILES_DIR)
     number_of_md_files = len(md_files)

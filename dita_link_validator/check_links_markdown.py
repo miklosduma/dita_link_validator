@@ -82,6 +82,31 @@ def get_links_with_title(md_content):
     return title_links_list
 
 
+def get_wiki_page_refs(md_content):
+    """
+    Collects page references from wiki.
+    E.g.: [[Wiki page name]] or [[Link text|Wiki page name]]
+    """
+    wiki_page_refs_list = []
+
+   # Find all wiki page ref links
+    wiki_page_refs = re.findall(r'\[\[[a-zA-Z 0-9|]+\]\]', md_content)
+
+    # Extract content, removing [[ and ]]
+    for w_p_r in wiki_page_refs:
+        w_p_r = re.findall(r'(?!\[)[^[]+(?<!\])', w_p_r)[0]
+
+        # If page ref has link text, remove it
+        # e.g. [[Link text|Wiki page name]]
+        if '|' in w_p_r:
+            w_p_r = w_p_r.split('|')[1]
+
+        # Add page name ref to list
+        wiki_page_refs_list.append(w_p_r)
+
+    return wiki_page_refs_list
+
+
 def get_all_links(md_file):
     """
     Collects all links from a markdown file.

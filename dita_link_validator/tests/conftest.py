@@ -28,6 +28,8 @@ EXPECTED_REFERENCE_LINKS_1 = ['http://docs.sparkl.com/#TopicRoot/'
                               'https://github.com/sparkl/examples'
                               '/tree/master/Library']
 
+EXPECTED_WIKI_PAGE_REFS = ['sample markdown1', 'sample md broken']
+
 
 @pytest.fixture(scope="module")
 def setup_method():
