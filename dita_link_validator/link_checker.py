@@ -33,6 +33,26 @@ def is_rel_link(md_file, link):
     return os.path.exists(rel_path)
 
 
+def is_wiki_link(md_file, link):
+    """
+    For markdown use only.
+    Checks if link is a reference to an 
+    existing wiki page.
+    Returns True or False
+    """
+    (path_to_file, file_name) = os.path.split(md_file)
+
+    wiki_pages = os.listdir(path_to_file)
+
+    wiki_pages_norm = [x.lower().replace('-', '')
+                       for x in wiki_pages]
+
+    print(wiki_pages_norm)
+    wiki_file_name = ''.join((link, '.md')).replace(' ', '')
+    print(wiki_file_name)
+    return any(x == wiki_file_name for x in wiki_pages_norm)
+
+
 def check_link(link):
     """
     Pings link and sends back response tuple
