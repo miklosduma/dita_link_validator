@@ -143,6 +143,120 @@ def get_md_files(root_dir):
     return paths_to_files
 
 
+def find_broken_links(md_file):
+    """
+    Finds the broken links in a file and returns
+    the statistics
+    """
+    error_links = []
+    links_to_check = get_all_links(md_file)
+    number_of_links = len(links_to_check)
+    print(console_message('info',
+                          'no_of_links_file',
+                          number_of_links,
+                          with_tag=False,
+                          with_color=False))
+
+    for link in links_to_check:
+        (tag, message) = check_link(link)
+
+        # If http/https is missing, link might be relative link
+        # If link is a valid file path, check is successful
+        if message == 'invalid_protocol' and is_rel_link(md_file, link):
+            tag = 'ok'
+            message = 'check_rel_link_message'
+
+        # If cannot open link, send error message and add link to list
+        if tag == 'error':
+            print(console_message(tag, message, link))
+            error_links.append(link + ' in ' + md_file)
+
+        if tag == 'warn':
+            print(console_message(tag, message, link))
+
+        if tag == 'ok':
+            print(console_message(tag, message, link,
+                                  with_tag=False, with_color=False))
+
+    number_of_error_links = len(error_links)
+    return error_links, number_of_links, number_of_error_links
+
+
+def find_broken_wiki_refs(md_file):
+    """
+    Finds the broken wiki refs in a file and returns
+    the statistics
+    """
+    error_refs = []
+    wiki_refs = get_wiki_page_refs(md_file)
+    number_of_wiki_refs = len(wiki_refs)
+
+    for file_path in wiki_refs:
+
+        if not is_wiki_link(md_file, file_path):
+            print(console_message('error', 'no_such_file_error', file_path))
+            error_refs.append(file_path)
+
+        else:
+            print(console_message('ok', 'check_rel_link_message', file_path))
+
+    number_of_error_refs = len(error_refs)
+    return error_refs, number_of_wiki_refs, number_of_error_refs
+
+
+def get_statistics(md_file):
+    """
+    Get total number of links, wiki page refs
+    and error links/references.
+    """
+
+    error_links, number_of_links, number_of_error_links = find_broken_links(
+        md_file)
+    error_refs, number_of_wiki_refs, number_of_error_refs = find_broken_wiki_refs(
+        md_file)
+
+    file_statistics = {
+        'total_links': number_of_links,
+        'total_refs': number_of_wiki_refs,
+    }
+
+    if number_of_error_links > 0:
+        file_statistics.update(
+            {'error_links': error_links, 'error_links_no': number_of_error_links})
+
+    if number_of_error_refs > 0:
+        file_statistics.update(
+            {'error_refs': error_refs, 'error_refs_no': number_of_error_refs})
+
+    return file_statistics
+
+def print_statistics(statistics):
+    """
+    Print error links, number of links and so on.
+    """
+    total_error_links = statistics.pop('total_error_links')
+    total_error_refs = statistics.pop('total_error_refs')
+    file_names = statistics.keys()
+
+    for file_name in file_names:
+        print(file_name)
+        file_statistics = statistics[file_name]
+        
+        error_links = file_statistics.pop('error_links', None)
+
+        if error_links:
+            print(error_links)
+            number_of_error_links = file_statistics.pop('error_links_no')
+            print (number_of_error_links)
+        
+        error_refs = file_statistics.pop('error_refs', None)
+
+        if error_refs:
+            print(error_refs)
+            number_of_error_refs = file_statistics.pop('error_refs_no')
+            print (number_of_error_refs)
+    return
+
 def check_links_in_dir(root_dir):
     """
     Checks all links in all markdown files
@@ -153,100 +267,33 @@ def check_links_in_dir(root_dir):
         print(console_message('error', 'not_directory', root_dir))
         return ('error', 'not_directory', root_dir)
 
-    # Collect markdown files
-    print('Collecting files...')
     md_files = get_md_files(root_dir)
     number_of_files = len(md_files)
-
-    # Start state for link statistics
-    total_links = 0
-    total_wiki_refs = 0
-    error_links = []
-    error_refs = []
 
     if number_of_files == 0:
         print(console_message('warn', 'no_markdown_files', root_dir))
         return ('warn', 'no_markdown_files', root_dir)
 
-    # Check links in all collected files
+    statistics = {}
+    total_error_refs = 0
+    total_error_links = 0
+
     for md_file in md_files:
+        file_statistics = get_statistics(md_file)
 
-        # Tell which file is being checked
-        print(console_message(
-            'info',
-            'check_message',
-            md_file,
-            with_tag=False))
+        if 'error_links_no' in file_statistics:
+            total_error_links += file_statistics['error_links_no']
 
-        # Collect links from file
-        links_to_check = get_all_links(md_file)
+        if 'error_refs_no' in file_statistics:
+            total_error_refs += file_statistics['error_refs_no']
 
-        wiki_refs = get_wiki_page_refs(md_file)
-        print (wiki_refs)
+        statistics.update({md_file: file_statistics})
 
-        # Get number of links in file and add to total
-        number_of_links = len(links_to_check)
-        number_of_wiki_refs = len(wiki_refs)
+    statistics.update({'total_error_refs': total_error_refs, 'total_error_links': total_error_links})
 
-        total_links += number_of_links
-        total_wiki_refs += number_of_wiki_refs
+    if total_error_refs == 0 and total_error_links == 0:
+        print(console_message('ok', 'all_good_message', root_dir))
+        return statistics
 
-        # Links checked in file.
-        print(console_message('info',
-                              'no_of_links_file',
-                              number_of_links,
-                              with_tag=False,
-                              with_color=False))
-
-        print('Wiki refs checked: %s' % (number_of_wiki_refs))
-
-        # Check all links in file
-        for link in links_to_check:
-            (tag, message) = check_link(link)
-
-            # If http/https is missing, link might be relative link
-            # If link is a valid file path, check is successful
-            if message == 'invalid_protocol' and is_rel_link(md_file, link):
-                tag = 'ok'
-                message = 'check_rel_link_message'
-
-            # If cannot open link, send error message and add link to list
-            if tag == 'error':
-                print(console_message(tag, message, link))
-                error_links.append(link + ' in ' + md_file)
-
-            if tag == 'warn':
-                print(console_message(tag, message, link))
-
-            if tag == 'ok':
-                print(console_message(tag, message, link,
-                                      with_tag=False, with_color=False))
-
-        for file_path in wiki_refs:
-            answer = is_wiki_link(md_file, file_path)
-            print (file_path, answer)
-
-            if answer == False:
-                error_refs.append(file_path)
-                print ('Error wiki ref: %s' % (file_path))
-
-    # Total number of files and links checked.
-    print(console_message('info',
-                          'no_of_files',
-                          number_of_files,
-                          with_tag=False))
-    print(console_message('info',
-                          'no_of_links_total',
-                          total_links,
-                          with_tag=False))
-
-    # If any broken link is found, print list of error links
-    number_of_broken_links = len(error_links)
-    if number_of_broken_links > 0:
-        print(console_message('error', 'error_count_message',
-                              "\n".join(error_links), with_tag=False))
-        return ('error', 'error_count_message', error_links)
-
-    # Otherwise print all fine
-    print(console_message('ok', 'all_good_message', root_dir))
-    return ('ok', 'all_good_message', root_dir)
+    print_statistics(statistics)
+    return statistics

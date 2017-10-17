@@ -14,6 +14,8 @@ This will be a [[wiki type page reference|sample markdown1]]
 
 this another, without link text [[sample md broken]]
 
+[[no such]]
+
 # Examples & Tutorials <a name="ex_tut"></a>
 ## To use an example <a name="use_examples"></a>:
 1. Save it to your local file system as an `xml` file.
