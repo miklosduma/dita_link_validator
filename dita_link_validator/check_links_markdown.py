@@ -139,7 +139,7 @@ def get_md_files(root_dir):
             if '.md' in name:
                 file_path = os.path.join(root, name)
                 paths_to_files.append(file_path)
-    # print(depth)
+
     return paths_to_files
 
 
@@ -151,11 +151,6 @@ def find_broken_links(md_file):
     error_links = []
     links_to_check = get_all_links(md_file)
     number_of_links = len(links_to_check)
-    print(console_message('info',
-                          'no_of_links_file',
-                          number_of_links,
-                          with_tag=False,
-                          with_color=False))
 
     for link in links_to_check:
         (tag, message) = check_link(link)
@@ -187,19 +182,24 @@ def find_broken_wiki_refs(md_file):
     Finds the broken wiki refs in a file and returns
     the statistics
     """
-    error_refs = []
+
+    # Get all wiki type page references
     wiki_refs = get_wiki_page_refs(md_file)
     number_of_wiki_refs = len(wiki_refs)
+    error_refs = []
 
+    # Check whether wiki refs point at existing wiki pages
     for file_path in wiki_refs:
 
         if not is_wiki_link(md_file, file_path):
-            print(console_message('error', 'no_such_file_error', file_path))
+            print(console_message('error', 'wiki_error', file_path))
             error_refs.append(file_path)
 
         else:
-            print(console_message('ok', 'check_rel_link_message', file_path))
+            print(console_message('ok', 'check_wiki_message',
+                                  file_path, with_tag=False, with_color=False))
 
+    # Return statistical data
     number_of_error_refs = len(error_refs)
     return error_refs, number_of_wiki_refs, number_of_error_refs
 
@@ -251,20 +251,24 @@ def print_statistics(statistics):
     for file_name in file_names:
 
         file_statistics = statistics[file_name]
-
+        total_links = file_statistics['total_links']
+        total_refs = file_statistics['total_refs']
+        print (console_message('info', 'file_stats', file_name, with_tag=False))
+        print (console_message('info', 'no_of_links_file', total_links, with_tag=False, with_color=False))
+        print (console_message('info', 'no_of_refs_file', total_refs, with_tag=False, with_color=False))
+        
         # If there are error links print them
         if 'error_links' in file_statistics:
-            error_links = file_statistics['error_links']
-            print(error_links)
-            number_of_error_links = file_statistics.pop('error_links_no')
-            print(number_of_error_links)
+            error_links = [' - %s' %(x) for x in file_statistics['error_links']]
+            error_links_string = '\n'.join(error_links)
+            print(console_message('error', 'error_links_count', error_links_string, with_tag=False))
 
         # If there are error refs print them
         if 'error_refs' in file_statistics:
-            error_refs = file_statistics['error_refs']
-            print(error_refs)
-            number_of_error_refs = file_statistics.pop('error_refs_no')
-            print(number_of_error_refs)
+            error_refs = [' - %s' % (x) for x in file_statistics['error_refs']]
+            error_refs_string = '\n'.join(error_refs)
+            print(console_message('error', 'error_refs_count', error_refs_string, with_tag=False))
+        
     return
 
 
@@ -280,8 +284,10 @@ def check_links_in_dir(root_dir):
         return ('error', 'not_directory', root_dir)
 
     # Collect all markdown files from root dir
+    print('Collecting files...')
     md_files = get_md_files(root_dir)
     number_of_files = len(md_files)
+    print ('Collected %s files.' % (number_of_files))
 
     # Return from fun if there are no markdown files in directory
     if number_of_files == 0:
@@ -295,6 +301,7 @@ def check_links_in_dir(root_dir):
 
     # Get statistics for files (i.e. number of links/broken links, etc)
     for md_file in md_files:
+        print ('Collecting links from file: %s' % (md_file))
         file_statistics = get_statistics(md_file)
 
         # If there are broken links in file add their number to total
@@ -318,5 +325,7 @@ def check_links_in_dir(root_dir):
         return statistics
 
     # Otherwise print error statistics
+    print('Returning statistics...')
     print_statistics(statistics)
+    
     return statistics

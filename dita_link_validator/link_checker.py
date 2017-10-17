@@ -47,9 +47,8 @@ def is_wiki_link(md_file, link):
     wiki_pages_norm = [x.lower().translate(None, '_- ')
                        for x in wiki_pages]
 
-    print('Normalised wikis: %s' % (wiki_pages_norm))
     wiki_file_name = ''.join((link.translate(None, '_- ').lower(), '.md'))
-    print('File name: %s' % (wiki_file_name))
+    
     return any(x == wiki_file_name for x in wiki_pages_norm)
 
 

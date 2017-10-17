@@ -17,6 +17,8 @@ MESSAGES = {
                 'Link checked: ',
             'check_rel_link_message':
                 'Relative link checked: ',
+            'check_wiki_message':
+                'Wiki page reference checked: ',
             'all_good_message':
                 'No broken links found in: '
         }
@@ -42,8 +44,10 @@ MESSAGES = {
                 'Failed to connect to link: ',
             'no_such_file_error':
                 'Could not find file: ',
-            'error_count_message':
-                'Check links:\n',
+            'error_links_count':
+                'Broken link(s) found:\n',
+            'error_refs_count': 
+                'Invalid wiki reference(s) found:\n',
             'file_not_spec_error':
                 'Specify a ditamap file for the command.\n'
                 'For example: python call_command.py dita foo.ditamap',
@@ -52,7 +56,9 @@ MESSAGES = {
                 'For example: [cmd] markdown path_to_folder',
             'invalid_arg_error':
                 'First argument must be markdown or dita.\n'
-                'Invalid argument: '
+                'Invalid argument: ',
+            'wiki_error':
+                'Reference to non-existent wiki page: '
         }
     },
 
@@ -78,11 +84,15 @@ MESSAGES = {
             'check_message':
                 'Checking links in file: ',
             'no_of_links_file':
-                'Number of links: ',
+                'Number of links checked: ',
+            'no_of_refs_file':
+                'Number of wiki page references checked: ',
             'no_of_links_total':
                 'Total number of links checked: ',
             'no_of_files':
-                'Number of files collected: '
+                'Number of files collected: ',
+            'file_stats':
+                'Link statistics in file: '
         }
     }
 }
