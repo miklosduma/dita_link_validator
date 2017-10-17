@@ -261,7 +261,7 @@ def print_statistics(statistics):
         if 'error_links' in file_statistics:
             error_links = [' - %s' %(x) for x in file_statistics['error_links']]
             error_links_string = '\n'.join(error_links)
-            print(console_message('error', 'error_links_count', error_links_string, with_tag=False))
+            print(console_message('error', 'error_count_message', error_links_string, with_tag=False))
 
         # If there are error refs print them
         if 'error_refs' in file_statistics:
@@ -327,5 +327,5 @@ def check_links_in_dir(root_dir):
     # Otherwise print error statistics
     print('Returning statistics...')
     print_statistics(statistics)
-    
+
     return statistics

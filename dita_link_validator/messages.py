@@ -44,7 +44,7 @@ MESSAGES = {
                 'Failed to connect to link: ',
             'no_such_file_error':
                 'Could not find file: ',
-            'error_links_count':
+            'error_count_message':
                 'Broken link(s) found:\n',
             'error_refs_count': 
                 'Invalid wiki reference(s) found:\n',
