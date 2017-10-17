@@ -44,12 +44,12 @@ def test_link_reference(setup_method):
     assert reference_links == EXPECTED_REFERENCE_LINKS_1
 
 
-def test_wiki_page_reference(setup_method):
+def test_wiki_page_reference():
     """
     Checking if fun manages to collect links like:
     [[Page name]] or [[Link text|Page name]]
     """
-    wiki_page_refs = clm.get_wiki_page_refs(setup_method)
+    wiki_page_refs = clm.get_wiki_page_refs(TEST_FILE_1)
     wiki_page_refs.sort()
     assert wiki_page_refs == EXPECTED_WIKI_PAGE_REFS
 

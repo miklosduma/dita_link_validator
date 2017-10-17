@@ -169,7 +169,7 @@ def find_broken_links(md_file):
         # If cannot open link, send error message and add link to list
         if tag == 'error':
             print(console_message(tag, message, link))
-            error_links.append(link + ' in ' + md_file)
+            error_links.append(link)
 
         if tag == 'warn':
             print(console_message(tag, message, link))
@@ -210,52 +210,63 @@ def get_statistics(md_file):
     and error links/references.
     """
 
-    error_links, number_of_links, number_of_error_links = find_broken_links(
+    error_links, no_of_links, no_of_error_links = find_broken_links(
         md_file)
-    error_refs, number_of_wiki_refs, number_of_error_refs = find_broken_wiki_refs(
+    error_refs, no_of_refs, no_of_error_refs = find_broken_wiki_refs(
         md_file)
 
+    # Base statistics.
     file_statistics = {
-        'total_links': number_of_links,
-        'total_refs': number_of_wiki_refs,
+        'total_links': no_of_links,
+        'total_refs': no_of_refs
     }
 
-    if number_of_error_links > 0:
+    # Add error links list and number of error links if any
+    if no_of_error_links > 0:
         file_statistics.update(
-            {'error_links': error_links, 'error_links_no': number_of_error_links})
+            {'error_links': error_links, 'error_links_no': no_of_error_links})
 
-    if number_of_error_refs > 0:
+    # Add error wiki type ref list and number of them if there are any
+    if no_of_error_refs > 0:
         file_statistics.update(
-            {'error_refs': error_refs, 'error_refs_no': number_of_error_refs})
+            {'error_refs': error_refs, 'error_refs_no': no_of_error_refs})
 
     return file_statistics
+
 
 def print_statistics(statistics):
     """
     Print error links, number of links and so on.
     """
-    total_error_links = statistics.pop('total_error_links')
-    total_error_refs = statistics.pop('total_error_refs')
-    file_names = statistics.keys()
 
+    # Get number of all error links and broken references
+    total_error_links = statistics['total_error_links']
+    total_error_refs = statistics['total_error_refs']
+
+    # All other keys in statistics dict are path to markdown files
+    file_names = [x for x in statistics.keys() if x !=
+                  'total_error_links' and x != 'total_error_refs']
+
+    # Print statistics message per markdown file
     for file_name in file_names:
-        print(file_name)
-        file_statistics = statistics[file_name]
-        
-        error_links = file_statistics.pop('error_links', None)
 
-        if error_links:
+        file_statistics = statistics[file_name]
+
+        # If there are error links print them
+        if 'error_links' in file_statistics:
+            error_links = file_statistics['error_links']
             print(error_links)
             number_of_error_links = file_statistics.pop('error_links_no')
-            print (number_of_error_links)
-        
-        error_refs = file_statistics.pop('error_refs', None)
+            print(number_of_error_links)
 
-        if error_refs:
+        # If there are error refs print them
+        if 'error_refs' in file_statistics:
+            error_refs = file_statistics['error_refs']
             print(error_refs)
             number_of_error_refs = file_statistics.pop('error_refs_no')
-            print (number_of_error_refs)
+            print(number_of_error_refs)
     return
+
 
 def check_links_in_dir(root_dir):
     """
@@ -263,37 +274,49 @@ def check_links_in_dir(root_dir):
     in a directory.
     """
 
+    # Return from fun if not called with valid path to a directory
     if not os.path.isdir(root_dir):
         print(console_message('error', 'not_directory', root_dir))
         return ('error', 'not_directory', root_dir)
 
+    # Collect all markdown files from root dir
     md_files = get_md_files(root_dir)
     number_of_files = len(md_files)
 
+    # Return from fun if there are no markdown files in directory
     if number_of_files == 0:
         print(console_message('warn', 'no_markdown_files', root_dir))
         return ('warn', 'no_markdown_files', root_dir)
 
+    # Starting values for statistics
     statistics = {}
     total_error_refs = 0
     total_error_links = 0
 
+    # Get statistics for files (i.e. number of links/broken links, etc)
     for md_file in md_files:
         file_statistics = get_statistics(md_file)
 
+        # If there are broken links in file add their number to total
         if 'error_links_no' in file_statistics:
             total_error_links += file_statistics['error_links_no']
 
+        # If there are broken wiki page references add their number to total
         if 'error_refs_no' in file_statistics:
             total_error_refs += file_statistics['error_refs_no']
 
+        # Add file statistics to total statistics, file's name being the key
         statistics.update({md_file: file_statistics})
 
-    statistics.update({'total_error_refs': total_error_refs, 'total_error_links': total_error_links})
+    # When done, update statistics with total number of broken links, etc
+    statistics.update({'total_error_refs': total_error_refs,
+                       'total_error_links': total_error_links})
 
+    # If no broken links are found print all good message
     if total_error_refs == 0 and total_error_links == 0:
         print(console_message('ok', 'all_good_message', root_dir))
         return statistics
 
+    # Otherwise print error statistics
     print_statistics(statistics)
     return statistics

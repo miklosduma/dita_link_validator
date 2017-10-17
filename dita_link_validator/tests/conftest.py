@@ -28,7 +28,10 @@ EXPECTED_REFERENCE_LINKS_1 = ['http://docs.sparkl.com/#TopicRoot/'
                               'https://github.com/sparkl/examples'
                               '/tree/master/Library']
 
-EXPECTED_WIKI_PAGE_REFS = ['sample markdown1', 'sample md broken']
+EXPECTED_WIKI_PAGE_REFS = ['no such', 'sample markdown1', 'sample md broken']
+
+EXPECTED_ERROR_WIKI_REFS = ['no such']
+EXPECTED_ERROR_LINKS = ['sample_file_non.md']
 
 
 @pytest.fixture(scope="module")
