@@ -44,12 +44,12 @@ def is_wiki_link(md_file, link):
 
     wiki_pages = os.listdir(path_to_file)
 
-    wiki_pages_norm = [x.lower().replace('-', '')
+    wiki_pages_norm = [x.lower().translate(None, '_- ')
                        for x in wiki_pages]
 
-    print(wiki_pages_norm)
-    wiki_file_name = ''.join((link, '.md')).replace(' ', '')
-    print(wiki_file_name)
+    print('Normalised wikis: %s' % (wiki_pages_norm))
+    wiki_file_name = ''.join((link.translate(None, '_- ').lower(), '.md'))
+    print('File name: %s' % (wiki_file_name))
     return any(x == wiki_file_name for x in wiki_pages_norm)
 
 

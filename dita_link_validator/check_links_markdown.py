@@ -9,7 +9,7 @@ import re
 import os
 
 from messages import console_message
-from link_checker import check_link, is_rel_link
+from link_checker import check_link, is_rel_link, is_wiki_link
 
 
 def get_reference_links(md_content):
@@ -82,29 +82,31 @@ def get_links_with_title(md_content):
     return title_links_list
 
 
-def get_wiki_page_refs(md_content):
+def get_wiki_page_refs(md_file):
     """
     Collects page references from wiki.
     E.g.: [[Wiki page name]] or [[Link text|Wiki page name]]
     """
     wiki_page_refs_list = []
 
-   # Find all wiki page ref links
-    wiki_page_refs = re.findall(r'\[\[[a-zA-Z 0-9|]+\]\]', md_content)
+    with open(md_file, 'r') as open_md_file:
+        md_content = open_md_file.read()
+        # Find all wiki page ref links
+        wiki_page_refs = re.findall(r'\[\[[a-zA-Z 0-9|]+\]\]', md_content)
 
-    # Extract content, removing [[ and ]]
-    for w_p_r in wiki_page_refs:
-        w_p_r = re.findall(r'(?!\[)[^[]+(?<!\])', w_p_r)[0]
+        # Extract content, removing [[ and ]]
+        for w_p_r in wiki_page_refs:
+            w_p_r = re.findall(r'(?!\[)[^[]+(?<!\])', w_p_r)[0]
 
-        # If page ref has link text, remove it
-        # e.g. [[Link text|Wiki page name]]
-        if '|' in w_p_r:
-            w_p_r = w_p_r.split('|')[1]
+            # If page ref has link text, remove it
+            # e.g. [[Link text|Wiki page name]]
+            if '|' in w_p_r:
+                w_p_r = w_p_r.split('|')[1]
 
-        # Add page name ref to list
-        wiki_page_refs_list.append(w_p_r)
+            # Add page name ref to list
+            wiki_page_refs_list.append(w_p_r)
 
-    return wiki_page_refs_list
+        return wiki_page_refs_list
 
 
 def get_all_links(md_file):
@@ -158,7 +160,9 @@ def check_links_in_dir(root_dir):
 
     # Start state for link statistics
     total_links = 0
+    total_wiki_refs = 0
     error_links = []
+    error_refs = []
 
     if number_of_files == 0:
         print(console_message('warn', 'no_markdown_files', root_dir))
@@ -177,9 +181,15 @@ def check_links_in_dir(root_dir):
         # Collect links from file
         links_to_check = get_all_links(md_file)
 
+        wiki_refs = get_wiki_page_refs(md_file)
+        print (wiki_refs)
+
         # Get number of links in file and add to total
         number_of_links = len(links_to_check)
+        number_of_wiki_refs = len(wiki_refs)
+
         total_links += number_of_links
+        total_wiki_refs += number_of_wiki_refs
 
         # Links checked in file.
         print(console_message('info',
@@ -187,6 +197,8 @@ def check_links_in_dir(root_dir):
                               number_of_links,
                               with_tag=False,
                               with_color=False))
+
+        print('Wiki refs checked: %s' % (number_of_wiki_refs))
 
         # Check all links in file
         for link in links_to_check:
@@ -209,6 +221,14 @@ def check_links_in_dir(root_dir):
             if tag == 'ok':
                 print(console_message(tag, message, link,
                                       with_tag=False, with_color=False))
+
+        for file_path in wiki_refs:
+            answer = is_wiki_link(md_file, file_path)
+            print (file_path, answer)
+
+            if answer == False:
+                error_refs.append(file_path)
+                print ('Error wiki ref: %s' % (file_path))
 
     # Total number of files and links checked.
     print(console_message('info',

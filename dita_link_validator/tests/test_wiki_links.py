@@ -7,8 +7,8 @@ from dita_link_validator.tests.conftest import TEST_FILE_1
 
 
 def test_is_wiki_link():
-    link1 = 'sample_markdown1'
-    link2 = 'sample_md_broken'
+    link1 = 'sample markdown1'
+    link2 = 'sample md broken'
 
     assert is_wiki_link(TEST_FILE_1, link1)
     assert is_wiki_link(TEST_FILE_1, link2)
